@@ -1,0 +1,128 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{leipzig-handout}[2026/10/06 A4-Handout im Stil der Leipzig-Praesentation]
+
+% Gestaltung aus der bereitgestellten Leipzig-Praesentation abgeleitet.
+% Verwendung mit scrartcl und XeLaTeX oder LuaLaTeX.
+\RequirePackage{iftex}
+\ifPDFTeX
+  \PackageError{leipzig-handout}{Bitte XeLaTeX oder LuaLaTeX verwenden}
+    {Diese Vorlage verwendet fontspec.}
+\else
+  \RequirePackage{fontspec}
+  \IfFontExistsTF{Arial}{%
+    \setmainfont{Arial}\setsansfont{Arial}%
+  }{%
+    \setmainfont{TeX Gyre Heros}\setsansfont{TeX Gyre Heros}%
+  }
+\fi
+\RequirePackage[ngerman]{babel}
+\RequirePackage[a4paper,left=21mm,right=29mm,top=23mm,bottom=23mm,
+  headheight=15pt,headsep=7mm,footskip=11mm]{geometry}
+\RequirePackage{graphicx,xcolor,tikz}
+\RequirePackage{amsmath,amssymb,booktabs,array,tabularx}
+\RequirePackage{enumitem,microtype,lastpage}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage[automark,headsepline=.25pt,footsepline=.4pt,plainfootsepline]{scrlayer-scrpage}
+\RequirePackage{hyperref}
+
+% Farben aus der Praesentation; dunkleres Aquamarin fuer lesbare Schrift.
+\definecolor{granat}{RGB}{176,47,44}
+\definecolor{karneol}{RGB}{214,66,66}
+\definecolor{aquamarin}{RGB}{138,194,209}
+\definecolor{basalt}{RGB}{38,42,49}
+\colorlet{LeipzigBlue}{aquamarin!45!basalt}
+\colorlet{Muted}{basalt!75!white}
+\colorlet{Soft}{aquamarin!10!white}
+\hypersetup{colorlinks=true,linkcolor=LeipzigBlue,urlcolor=LeipzigBlue,
+  citecolor=LeipzigBlue,bookmarksnumbered=true}
+
+% Schalter: in main.tex nach dem Laden des Stils mit \Randmusterfalse
+% ausschalten, z. B. fuer eine besonders sparsame Druckversion.
+\newif\ifRandmuster
+\Randmustertrue
+\AddToHook{shipout/background}{%
+  \ifRandmuster
+    % Der Shipout-Hook hat seinen Ursprung links oben auf dem Blatt.
+    % Direkte Koordinaten halten das Muster unabhaengig von Textumbruechen.
+    \put(0,0){\begin{tikzpicture}[overlay]
+      \begin{scope}[xshift=\paperwidth]
+        % Schlanke, ineinandergreifende Dreiecke am rechten Blattrand.
+        \path[fill=granat]
+          (-7mm,0) -- (0,0) -- (0,-.68\paperheight)
+          -- (-3mm,-.58\paperheight) -- cycle;
+        \path[fill=aquamarin]
+          (-22mm,-\paperheight) -- (0,-\paperheight)
+          -- (-7mm,-.78\paperheight) -- cycle;
+        \path[fill=karneol]
+          (-3mm,-.58\paperheight) -- (0,-.68\paperheight)
+          -- (0,-\paperheight) -- (-10mm,-\paperheight)
+          -- (-7mm,-.78\paperheight) -- cycle;
+      \end{scope}
+    \end{tikzpicture}}
+  \fi
+}
+
+% Grundschrift, Abstaende und Ueberschriften.
+\renewcommand{\familydefault}{\sfdefault}
+\AtBeginDocument{\color{basalt}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\setlength{\parfillskip}{0pt plus 1fil}
+\setkomafont{disposition}{\sffamily\bfseries\color{basalt}}
+\setkomafont{section}{\large\color{LeipzigBlue}}
+\setkomafont{subsection}{\normalsize\color{basalt}}
+\RedeclareSectionCommand[beforeskip=3mm,afterskip=1.5mm]{section}
+\RedeclareSectionCommand[beforeskip=2mm,afterskip=1mm]{subsection}
+\setlist{leftmargin=*,topsep=3pt,itemsep=2pt,parsep=0pt}
+\setlist[itemize]{label=\textcolor{LeipzigBlue}{\textbullet}}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.2}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% Fortsetzungsseiten mit schmaler Kopfzeile, alle Seiten mit Fusszeile.
+\clearpairofpagestyles
+\ihead{\HandoutKurztitel}
+\ohead{Handout}
+\ifoot*{UNIVERSIT\"AT LEIPZIG}
+\ofoot*{\thepage\,/\,\pageref*{LastPage}}
+\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize\color{Muted}}
+\setkomafont{pagefoot}{\normalfont\sffamily\scriptsize\color{Muted}}
+\setkomafont{headsepline}{\color{aquamarin}}
+\setkomafont{footsepline}{\color{karneol}}
+\pagestyle{scrheadings}
+
+% Titelleiste ohne separate Titelseite. Angaben stehen in Angaben.tex.
+\newcommand{\handouttitel}{%
+  \thispagestyle{plain.scrheadings}%
+  \noindent\begin{minipage}[c]{.57\linewidth}
+    \includegraphics[width=43mm]{images/logo_leipzig.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{.39\linewidth}\raggedleft
+    {\small\bfseries\color{LeipzigBlue}HANDOUT\par}
+    {\small\HandoutDatum\par}
+  \end{minipage}
+  \par\vspace{5mm}
+  {\fontsize{23}{27}\selectfont\bfseries\HandoutTitel\par}
+  \vspace{1mm}
+  {\large\color{LeipzigBlue}\HandoutUntertitel\par}
+  \vspace{2mm}
+  {\small\setlength{\parskip}{1pt}\HandoutAutor\par\HandoutInstitut\par\HandoutVeranstaltung\par}
+  \vspace{3mm}
+  {\color{karneol}\hrule height .5pt}
+  \vspace{3mm}
+}
+
+% Dezenter, seitenuebergreifend umbrechbarer Merkkasten.
+\newtcolorbox{merksatz}[1][Merksatz]{enhanced,breakable,
+  colback=Soft,colframe=aquamarin,coltitle=LeipzigBlue,
+  colbacktitle=Soft,fonttitle=\bfseries,title={#1},
+  boxrule=0pt,borderline west={1.2pt}{0pt}{aquamarin},
+  sharp corners,left=3mm,right=3mm,top=2mm,bottom=2mm,
+  before skip=3mm,after skip=3mm}
+
+\newcommand{\quelle}[1]{\par{\footnotesize\color{Muted}#1\par}}
+\newcommand{\notizlinien}[1][4]{%
+  \par\begingroup\color{aquamarin!60!white}%
+    \foreach \n in {1,...,#1}{\vspace{5mm}\noindent\rule{\linewidth}{.3pt}\par}%
+  \endgroup}

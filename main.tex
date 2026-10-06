@@ -1,0 +1,90 @@
+% Hauptdatei. Mit XeLaTeX oder LuaLaTeX zweimal kompilieren.
+\documentclass[11pt,a4paper,parskip=half]{scrartcl}
+\usepackage{leipzig-handout}
+\input{Angaben.tex}
+
+% Optional: Randmuster fuer eine sparsame Druckfassung ausschalten.
+% \Randmusterfalse
+
+\begin{document}
+\handouttitel
+
+% Die folgenden Beispiele durch eigene Inhalte ersetzen.
+\section{Thema und Lernziele}
+Eine kurze Einleitung ordnet das Thema ein, benennt die Leitfrage
+und stellt den Bezug zur Lehrveranstaltung her.
+
+Nach der Sitzung können die Teilnehmenden beispielsweise
+\begin{itemize}
+  \item einen zentralen Begriff in eigenen Worten erklären,
+  \item zwei Ansätze anhand geeigneter Kriterien vergleichen und
+  \item das Gelernte auf eine konkrete Aufgabe anwenden.
+\end{itemize}
+
+\section{Begriffe und Kerngedanken}
+\begin{merksatz}[Zentraler Begriff]
+Hier steht eine kurze Definition oder eine zentrale Aussage.
+Ein anschließendes Beispiel kann den Begriff veranschaulichen.
+\end{merksatz}
+
+Im Fließtext können Sie Zusammenhänge erklären und Begriffe durch
+\textbf{Fettdruck} hervorheben. Zusätzliche Angaben passen in eine
+Fußnote.\footnote{Beispiel einer ergänzenden Erläuterung.}
+
+\section{Eine Gegenüberstellung}
+% Die Tabelle ist direkt in den Text eingebunden und verschiebt sich nicht.
+\begin{tabularx}{\linewidth}{@{}P{.22\linewidth}Y Y@{}}
+  \toprule
+  \textbf{Kriterium} & \textbf{Ansatz A} & \textbf{Ansatz B} \\
+  \midrule
+  Ziel & Beschreibung des ersten Ziels & Beschreibung des zweiten Ziels \\
+  Vorgehen & Zentrale Schritte des ersten Ansatzes & Zentrale Schritte des zweiten Ansatzes \\
+  Anwendung & Ein passendes Beispiel & Ein passendes Beispiel \\
+  \bottomrule
+\end{tabularx}
+\quelle{Beispieltabelle. Inhalte und gegebenenfalls Quellenangabe ersetzen.}
+
+\section{Kurze Reflexion}
+Welche Verbindung sehen Sie zwischen dem Thema und Ihrem bisherigen Wissen?
+\notizlinien[2]
+
+% Nur fuer die Demonstration der Fortsetzungsseite.
+% Ohne \newpage fliesst der eigene Inhalt automatisch weiter.
+\newpage
+
+\section{Beispiel und Anwendung}
+Beschreiben Sie hier einen Fall, eine Beobachtung oder eine Aufgabe,
+auf die sich die zuvor erläuterten Begriffe anwenden lassen.
+Bei mathematischen Themen können Sie Formeln ergänzen, zum Beispiel
+\[
+  \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i.
+\]
+Dabei bezeichnet $\bar{x}$ den arithmetischen Mittelwert der $n$ Werte $x_i$.
+
+\subsection{Arbeitsauftrag}
+\begin{enumerate}
+  \item Beschreiben Sie den Fall in eigenen Worten.
+  \item Ordnen Sie die Beobachtungen den passenden Begriffen zu.
+  \item Begründen Sie Ihre Einschätzung mit Bezug auf die Inhalte der Sitzung.
+\end{enumerate}
+
+\begin{merksatz}[Ergebnissicherung]
+Halten Sie Ihre wichtigste Erkenntnis in einem Satz fest. Ergänzen Sie
+anschließend eine Frage, die noch offen geblieben ist.
+\end{merksatz}
+
+\section{Raum für Notizen}
+\notizlinien[6]
+
+\section{Literatur und weiterführende Hinweise}
+% Platzhalter ersetzen; hier werden keine realen Quellen behauptet.
+\begin{description}[font=\normalfont\bfseries,style=nextline]
+  \item[Grundlagentext]
+    Nachname, Vorname (Jahr): \emph{Titel des Textes}. Verlag oder Zeitschrift.
+  \item[Materialien zur Sitzung]
+    Titel der Materialien, Lernplattform oder Projektadresse.
+\end{description}
+\quelle{Platzhalter für Ihre Quellen. Für umfangreiche Literaturlisten
+können Sie ein Literaturverwaltungs-Paket ergänzen.}
+
+\end{document}
